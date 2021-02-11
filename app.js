@@ -51,6 +51,10 @@ class BD {
        }
        return despesas
 }
+    pesquisar(despesas){
+        console.log(despesas)
+
+    }
 }
 let bd = new BD()
 
@@ -113,7 +117,7 @@ function carregaListaDespesas(){
     let listaDespesas = document.getElementById('listaDespesas')
 
     despesas.forEach(function(d){
-        console.log(d)
+        //console.log(d)
 
        let linha =  listaDespesas.insertRow()
        //criar as colunas td
@@ -140,5 +144,18 @@ function carregaListaDespesas(){
        
 
     })
+}
+function pesquisarDespesas(){
+   let ano = document.getElementById('ano').value
+   let mes = document.getElementById('mes').value
+   let dia = document.getElementById('dia').value
+   let tipo = document.getElementById('tipo').value
+   let descricao = document.getElementById('descricao').value
+   let valor = document.getElementById('valor').value
+
+   let despesas = new Despesas(ano,mes,dia,tipo,descricao,valor)
+  
+   bd.pesquisar(despesas)
+
 }
 
