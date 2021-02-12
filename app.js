@@ -43,10 +43,11 @@ class BD {
         let despesa = JSON.parse(localStorage.getItem(i))
         //indices null que foram removidos
         //vamos pular esses indices
-         if(despesa == null){
+         if(despesa === null){
              continue
 
          }
+         despesa.id = i
         despesas.push(despesa)
        }
        return despesas
@@ -91,6 +92,9 @@ class BD {
         }
         return despesasFiltradas
     }
+    remover(id){
+		localStorage.removeItem(id)
+	}
 }
 let bd = new BD()
 
@@ -154,6 +158,7 @@ function carregaListaDespesas(despesas = Array(), filtro = false){
     // Selecionando elemento tbody da tabela
     let listaDespesas = document.getElementById('listaDespesas')
     listaDespesas.innerHTML = ""
+        
     despesas.forEach(function(d){
         //console.log(d)
 
@@ -179,6 +184,21 @@ function carregaListaDespesas(despesas = Array(), filtro = false){
 
        linha.insertCell(2).innerHTML = d.descricao
        linha.insertCell(3).innerHTML = d.valor
+
+       //criar botão de exclusao
+       let btn = document.createElement("button")
+      
+       btn.className = 'btn btn-danger btn-sm'
+       btn.innerHTML = '<i class="fas fa-times">  </i>'
+       btn.id = `id_despesa_${d.id}`
+       btn.onclick = function(){
+        let id = this.id.replace('id_despesa_','')
+        //alert(id)
+        bd.remover(id)
+        window.location.reload()
+    }
+       linha.insertCell(4).append(btn)
+       console.log(d)
        
 
     })
