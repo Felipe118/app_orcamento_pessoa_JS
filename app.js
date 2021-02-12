@@ -55,16 +55,41 @@ class BD {
         
         let despesasFiltradas = Array()
         despesasFiltradas = this.recuperarTodosOsRegistros()
+        console.log(despesasFiltradas)
        
         //ano
         if(despesas.ano != ""){
-            console.log(despesasFiltradas.filter(d => d.ano == despesas.ano))
+           
+            despesasFiltradas =   despesasFiltradas.filter(d => d.ano == despesas.ano)
         }
        
         //mes
+        if(despesas.mes != ""){
+           
+            despesasFiltradas =   despesasFiltradas.filter(d => d.mes == despesas.mes)
+        }
 
         //dia
-
+        if(despesas.dia != ""){
+           
+            despesasFiltradas =   despesasFiltradas.filter(d => d.dia == despesas.dia)
+        }
+        //tipo
+        if(despesas.tipo != ""){
+           
+            despesasFiltradas =   despesasFiltradas.filter(d => d.tipo == despesas.tipo)
+        }
+        //descricao
+        if(despesas.descricao != ""){
+           
+            despesasFiltradas =   despesasFiltradas.filter(d => d.descricao == despesas.descricao)
+        }
+        //valor
+        if(despesas.valor != ""){
+           
+            despesasFiltradas =   despesasFiltradas.filter(d => d.valor == despesas.valor)
+        }
+        return despesasFiltradas
     }
 }
 let bd = new BD()
@@ -120,13 +145,15 @@ function cadastrarDespesas(){
 
         
 }
-function carregaListaDespesas(){
-    let despesas = Array()
-    despesas = bd.recuperarTodosOsRegistros()
+function carregaListaDespesas(despesas = Array(), filtro = false){
+    if(despesas.length == 0 && filtro == false){
+        despesas = bd.recuperarTodosOsRegistros()
+    }
+    
 
     // Selecionando elemento tbody da tabela
     let listaDespesas = document.getElementById('listaDespesas')
-
+    listaDespesas.innerHTML = ""
     despesas.forEach(function(d){
         //console.log(d)
 
@@ -156,6 +183,8 @@ function carregaListaDespesas(){
 
     })
 }
+
+
 function pesquisarDespesas(){
    let ano = document.getElementById('ano').value
    let mes = document.getElementById('mes').value
@@ -164,9 +193,14 @@ function pesquisarDespesas(){
    let descricao = document.getElementById('descricao').value
    let valor = document.getElementById('valor').value
 
-   let despesas = new Despesas(ano,mes,dia,tipo,descricao,valor)
+   let despesa = new Despesas(ano,mes,dia,tipo,descricao,valor)
   
-  bd.pesquisar(despesas)
+    let despesas = bd.pesquisar(despesa)
+
+
+    this.carregaListaDespesas(despesas, true)
+    
+
 
 }
 
