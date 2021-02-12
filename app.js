@@ -52,7 +52,18 @@ class BD {
        return despesas
 }
     pesquisar(despesas){
-        console.log(despesas)
+        
+        let despesasFiltradas = Array()
+        despesasFiltradas = this.recuperarTodosOsRegistros()
+       
+        //ano
+        if(despesas.ano != ""){
+            console.log(despesasFiltradas.filter(d => d.ano == despesas.ano))
+        }
+       
+        //mes
+
+        //dia
 
     }
 }
@@ -121,7 +132,7 @@ function carregaListaDespesas(){
 
        let linha =  listaDespesas.insertRow()
        //criar as colunas td
-       linha.insertCell(0).innerHTML = `${d.dia}/ ${d.mes}/ ${ d.dia}` 
+       linha.insertCell(0).innerHTML = `${d.dia}/ ${d.mes}/ ${ d.ano}` 
       
 //ajustar o tipo]
     switch(d.tipo) {
@@ -155,7 +166,7 @@ function pesquisarDespesas(){
 
    let despesas = new Despesas(ano,mes,dia,tipo,descricao,valor)
   
-   bd.pesquisar(despesas)
+  bd.pesquisar(despesas)
 
 }
 
