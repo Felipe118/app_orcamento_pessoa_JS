@@ -5,7 +5,7 @@ class Despesas {
         this.dia = dia
         this.tipo = tipo
         this.descricao = descricao
-        this.valor = valor
+        this.valor = valor 
     }
     validarDados(){
         for(let i in this){
@@ -108,6 +108,7 @@ function cadastrarDespesas(){
     let descricao = document.getElementById('descricao')
     let valor = document.getElementById('valor')
 
+   
 
     let despesas = new Despesas(
         ano.value,
@@ -117,6 +118,19 @@ function cadastrarDespesas(){
         descricao.value,
         valor.value
         )
+        if (despesas.mes == ""){
+           
+            document.getElementById('exampleModalLabel').innerHTML ="Erro!"
+            document.getElementById('texto-modal').innerHTML ="Erro ao inserir despesa, verifique se todos os campos foram preenchidos"
+            document.getElementById('modal_titulo_div').className = "modal-header text-danger"
+            document.getElementById('botao').className="btn btn-danger"
+            document.getElementById('botao').innerHTML = "Voltar e corrigir"
+          
+
+            $('#modalRegistraDespesas').modal('show')
+             return false
+            
+        }
    
         if(despesas.validarDados()){
             bd.gravar(despesas)
@@ -125,15 +139,15 @@ function cadastrarDespesas(){
             document.getElementById('modal_titulo_div').className ="  modal-header text-success"
             document.getElementById('botao').className="btn btn-success"
             document.getElementById('botao').innerHTML = "Voltar "
-        
+            
           
             $('#modalRegistraDespesas').modal('show')
             ano.value = ""
             mes.value= ""
             dia.value= ""
             tipo.value= ""
-           descricao.value= ""
-           valor.value= ""
+            descricao.value= ""
+            valor.value= ""
 
         }else{
             document.getElementById('exampleModalLabel').innerHTML ="Erro!"
